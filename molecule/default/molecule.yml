@@ -1,0 +1,18 @@
+---
+dependency:
+  name: galaxy
+  options:
+    ignore-certs: True
+    ignore-errors: True
+    requirements-file: requirements.yml
+driver:
+  name: default
+platforms:
+  - name: dev-vm-test
+    groups:
+      - dev_vm
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible

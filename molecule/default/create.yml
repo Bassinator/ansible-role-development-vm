@@ -1,0 +1,42 @@
+---
+- name: Create
+  hosts: dev_vm
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Create Multipass VM
+      theko2fi.multipass.multipass_vm:
+        name: "{{ inventory_hostname }}"
+        cpus: 2
+        memory: 2G
+        disk: 8G
+        state: started
+      register: server    
+      delegate_to: localhost
+
+
+    - when: server.changed | default(false) | bool
+      block:
+        - name: Populate instance config dict
+          ansible.builtin.set_fact:
+            instance_conf_dict: {
+              'instance': "{{ inventory_hostname }}",
+              'address': "{{ server.result.info[inventory_hostname].ipv4[0] }}",
+              'identity_file': "~/.ssh/id_rsa_multipass",
+              'user': "ubuntu",
+              'port': "22",
+          }
+          register: instance_config_dict
+
+        - name: Convert instance config dict to a list
+          ansible.builtin.set_fact:
+            instance_conf: "{{ [instance_config_dict] | map(attribute='ansible_facts.instance_conf_dict') | list }}"
+
+        - name: Dump instance config
+          ansible.builtin.copy:
+            content: |
+              # Molecule managed
+
+              {{ instance_conf | to_json | from_json | to_yaml }}
+            dest: "{{ molecule_instance_config }}"
+            mode: 0600

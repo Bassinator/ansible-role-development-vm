@@ -1,0 +1,24 @@
+---
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Install Remote Desktop Software
+  ansible.builtin.apt:
+    name:
+      - ubuntu-desktop
+      - xrdp
+
+
+- name: Authorize to ssh login with ssh key
+  authorized_key:
+    user: ubuntu
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+- name: Set password for ubuntu user to ubuntu
+  ansible.builtin.user:
+    name: ubuntu
+    password: '$6$gbKufjzNjcEJjxFh$0D4Zucaz4L06Gs.Ny/wVykM1lGeWuF21DKvjsm77yUY9Z62G5lONmqz3UTlpCGHA99f36bO.dRUCTNIcspFv41' 
