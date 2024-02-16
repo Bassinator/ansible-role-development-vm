@@ -5,9 +5,6 @@
   gather_facts: false
 
   tasks:
-    - debug:
-        var: hostvars
-
     - name: "Include ansible-role-developemnt-vm"
       ansible.builtin.include_role:
         name: "ansible-role-developemnt-vm"

@@ -13,6 +13,9 @@ platforms:
       - dev_vm
 provisioner:
   name: ansible
-
+  inventory:
+    group_vars:
+      all:
+        dev_user: ubuntu
 verifier:
   name: ansible

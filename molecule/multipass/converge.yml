@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: "Include ansible-role-developemnt-vm"
+      ansible.builtin.include_role:
+        name: "ansible-role-developemnt-vm"

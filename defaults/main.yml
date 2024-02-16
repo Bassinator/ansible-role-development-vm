@@ -1,2 +1,3 @@
 ---
 # defaults file for development_vm
+desktop_environment: cinnamon-desktop-environment

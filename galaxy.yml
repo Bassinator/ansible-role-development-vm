@@ -1,0 +1,12 @@
+### REQUIRED
+namespace: einfachit
+
+name: dev_vm 
+
+#version is replaced on release createion on github
+version: 1.0.0
+
+readme: README.md
+
+authors:
+- bastian bukatz <bastian.greuel@gmail.com>

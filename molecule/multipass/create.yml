@@ -8,8 +8,8 @@
       theko2fi.multipass.multipass_vm:
         name: "{{ inventory_hostname }}"
         cpus: 2
-        memory: 2G
-        disk: 8G
+        memory: 4G
+        disk: 20G
         state: started
       register: server    
       delegate_to: localhost

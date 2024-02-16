@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:                                                                        
+  name: docker                                                                 
+lint: |                                                                        
+  set -e                                                                       
+  yamllint .                                                                   
+platforms:                                                                     
+  - name: dev-vm-test
+    image: ubuntu:22.04
+    groups:                                                                    
+      - dev_vm
+provisioner:                                                                   
+  name: ansible                                                                
+  inventory:                                                                   
+    group_vars:                                                                
+      all:                                                                     
+        dev_user: root
+verifier:
+  name: ansible
